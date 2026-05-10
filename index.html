@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>母亲节山水信封</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:250vh;
+    overflow-x:hidden;
+    font-family:"Microsoft YaHei",sans-serif;
+
+    background:
+    linear-gradient(
+        180deg,
+        #d9f0ee 0%,
+        #9bc7c2 25%,
+        #6d9fa0 50%,
+        #436b74 75%,
+        #274650 100%
+    );
+}
+
+/* 山体背景 */
+
+.mountain1,
+.mountain2,
+.mountain3{
+    position:fixed;
+    bottom:0;
+    width:120%;
+    border-radius:50%;
+    filter:blur(2px);
+}
+
+.mountain1{
+    height:280px;
+    background:#315863;
+    left:-10%;
+    z-index:-3;
+}
+
+.mountain2{
+    height:220px;
+    background:#436f76;
+    left:-5%;
+    bottom:60px;
+    z-index:-2;
+}
+
+.mountain3{
+    height:180px;
+    background:#5f9191;
+    left:-10%;
+    bottom:120px;
+    opacity:0.8;
+    z-index:-1;
+}
+
+/* 页面居中 */
+
+.container{
+    width:100%;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:fixed;
+}
+
+/* 信封 */
+
+.envelope{
+    position:relative;
+    width:420px;
+    height:270px;
+}
+
+/* checkbox隐藏 */
+
+#open{
+    display:none;
+}
+
+/* 信封主体 */
+
+.envelope-base{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#dcefeb;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 20px 45px rgba(0,0,0,0.25);
+}
+
+.envelope-base::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:#c7e3de;
+    clip-path:polygon(0 0,50% 55%,0 100%);
+}
+
+.envelope-base::after{
+    content:"";
+    position:absolute;
+    right:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:#b8d9d3;
+    clip-path:polygon(100% 0,50% 55%,100% 100%);
+}
+
+/* 上盖 */
+
+.flap{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:160px;
+    background:#b4d7d0;
+
+    clip-path:polygon(0 0,100% 0,50% 100%);
+
+    transform-origin:top;
+    transition:1.2s ease;
+    z-index:6;
+}
+
+/* 信纸 */
+
+.letter{
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    transform:translateX(-50%);
+
+    width:88%;
+    height:88%;
+
+    background:white;
+    border-radius:10px;
+
+    padding:40px 30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.12);
+
+    transition:1.2s ease;
+
+    z-index:2;
+
+    opacity:0;
+}
+
+/* 标题 */
+
+.letter h1{
+    text-align:center;
+    color:#426d73;
+    margin-bottom:25px;
+    font-size:30px;
+    letter-spacing:2px;
+}
+
+/* 内容 */
+
+.letter p{
+    text-align:center;
+    color:#53656b;
+    line-height:2.2;
+    font-size:17px;
+}
+
+/* 按钮 */
+
+.open-btn{
+    position:absolute;
+    left:50%;
+    bottom:-75px;
+    transform:translateX(-50%);
+
+    padding:12px 34px;
+
+    border-radius:30px;
+
+    background:#5d8d8d;
+    color:white;
+
+    cursor:pointer;
+    font-size:16px;
+    letter-spacing:1px;
+
+    transition:0.3s;
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+
+    user-select:none;
+}
+
+.open-btn:hover{
+    background:#4b7777;
+}
+
+/* 默认文字 */
+
+.open-btn::before{
+    content:"打开信封";
+}
+
+/* 打开后文字 */
+
+#open:checked ~ .container .open-btn::before{
+    content:"关闭信封";
+}
+
+/* 信封打开动画 */
+
+#open:checked ~ .container .flap{
+    transform:rotateX(180deg);
+    z-index:1;
+}
+
+#open:checked ~ .container .letter{
+    bottom:90px;
+    opacity:1;
+}
+
+/* 底部箭头 */
+
+.arrow{
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%);
+    animation:float 2s infinite;
+    opacity:0.7;
+}
+
+.arrow span{
+    display:block;
+    width:22px;
+    height:22px;
+
+    border-right:3px solid rgba(255,255,255,0.75);
+    border-bottom:3px solid rgba(255,255,255,0.75);
+
+    transform:rotate(45deg);
+}
+
+@keyframes float{
+
+    0%{
+        transform:translateX(-50%) translateY(0);
+    }
+
+    50%{
+        transform:translateX(-50%) translateY(10px);
+    }
+
+    100%{
+        transform:translateX(-50%) translateY(0);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="mountain1"></div>
+<div class="mountain2"></div>
+<div class="mountain3"></div>
+
+<input type="checkbox" id="open">
+
+<div class="container">
+
+    <div class="envelope">
+
+        <div class="envelope-base"></div>
+
+        <div class="flap"></div>
+
+        <div class="letter">
+
+            <h1>母亲节快乐</h1>
+
+            <p>
+                愿岁月温柔待您，<br>
+                愿您的笑容始终明亮。<br><br>
+
+                谢谢您一直以来的陪伴与守护。<br>
+                愿平安与幸福常伴您身旁 ❤️
+            </p>
+
+        </div>
+
+        <label for="open" class="open-btn"></label>
+
+    </div>
+
+</div>
+
+<div class="arrow">
+    <span></span>
+</div>
+
+</body>
+</html>
